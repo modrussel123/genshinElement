@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Full Screen Image</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative; /* Added position relative to body and html */
+        }
+        .fullscreen-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Ensure the image is behind other content */
+            opacity: 0.9; /* Set the opacity of the image */
+        }
+        .calligraphy-text {
+            font-size: 70px;
+            font-weight: normal;
+            color: rgb(235, 221, 177); /* Color of the calligraphy text */
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Glow effect */
+            font-family: cursive; /* Use a generic cursive font for calligraphy effect */
+            letter-spacing: 1px; /* Add spacing between letters for readability */
+            line-height: 1; /* Set line height to normal */
+            white-space: nowrap; /* Prevent text wrapping */
+            position: absolute; /* Position the text absolutely */
+            top: 5%; /* Adjust the top position to center vertically */ 
+            left: 50%; /* Align the text horizontally to the center */
+            transform: translate(-50%, -50%); /* Center the text horizontally and vertically */
+            z-index: 1; /* Ensure the text is above the image */
+        }
+        .reaction-input {
+            font-size: 70px;
+            margin-top: 10px; /* Adjust spacing below the text */
+            text-align: center; /* Center-align the input and button */
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .letter-green {
+            color: green;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.7); /* Glow effect for green letters */
+        }
+        .letter-blue {
+            color: blue;
+            text-shadow: 0 0 10px rgba(0, 0, 255, 0.7); /* Glow effect for blue letters */
+        }
+        .letter-white {
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Glow effect for white letters */
+        }
+        .letter-yellow {
+            color: yellow;
+            text-shadow: 0 0 10px rgba(255, 255, 0, 0.7); /* Glow effect for yellow letters */
+        }
+        .letter-red {
+            color: red;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7); /* Glow effect for red letters */
+        }
+        .letter-orange {
+            color: orange;
+            text-shadow: 0 0 10px rgba(255, 165, 0, 0.7); /* Glow effect for orange letters */
+        }
+        .letter-purple {
+            color: purple;
+            text-shadow: 0 0 10px rgba(128, 0, 128, 0.7); /* Glow effect for purple letters */
+        }
+        .letter-pink {
+            color: pink;
+            text-shadow: 0 0 10px rgba(255, 192, 203, 0.7); /* Glow effect for pink letters */
+        }
+        .letter-cyan {
+            color: cyan;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7); /* Glow effect for cyan letters */
+        }
+        .letter-brown {
+            color: brown;
+            text-shadow: 0 0 10px rgba(165, 42, 42, 0.7); /* Glow effect for brown letters */
+        }
+        .letter-grey {
+            color: grey;
+            text-shadow: 0 0 10px rgba(128, 128, 128, 0.7); /* Glow effect for grey letters */
+        }
+        .letter-black {
+            color: black;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.7); /* Glow effect for black letters */
+        }
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .popup-content {
+            text-align: center;
+            font-size: 24px;
+            color: black;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: red;
+        }
+        /* Adjusted styles for input elements */
+        input[type="text"] {
+            font-size: 24px; /* Set font size for input */
+            padding: 10px; /* Adjust padding for input */
+            width: 300px; /* Set width for input */
+            background-color: rgba(255, 255, 255, 0.8); /* Lighter background color */
+            border: 1px solid #ccc; /* Add border to input */
+            border-radius: 5px; /* Add border radius */
+            margin-top: 5px; /* Adjust margin top */
+            color: black; /* Set text color */
+        }
+        .overlay-image {
+            width: 5%;
+            height: 10%;
+            object-fit: cover;
+            position: fixed;
+            top: 15%;
+            left: 1%;
+            z-index: 1; /* Higher z-index to overlay on top of background image */
+            background-color: rgba(0, 0, 0, 0); /* Transparent background */
+            mix-blend-mode: screen; /* Blend mode to remove black background */
+            border-radius: 50%;       
+        }
+        .overlay-image2 {
+            width: 5%;
+            height: 10%;
+            object-fit: cover;
+            position: fixed;
+            top: 27%;
+            left: 1%;
+            z-index: 1; /* Higher z-index to overlay on top of background image */
+            background-color: rgba(0, 0, 0, 0); /* Transparent background */
+            mix-blend-mode: screen; /* Blend mode to remove black background */
+            border-radius: 50%;       
+        }
+
+        .overlay-image3 {
+            width: 5%;
+            height: 10%;
+            object-fit: cover;
+            position: fixed;
+            top:39%;
+            left: 1%;
+            z-index: 1; /* Higher z-index to overlay on top of background image */
+            background-color: rgba(0, 0, 0, 0); /* Transparent background */
+            mix-blend-mode: screen; /* Blend mode to remove black background */
+            border-radius: 50%;       
+        }
+        .overlay-image4 {
+            width: 5%;
+            height: 10%;
+            object-fit: cover;
+            position: fixed;
+            top:51%;
+            left: 1%;
+            z-index: 1; /* Higher z-index to overlay on top of background image */
+            background-color: rgba(0, 0, 0, 0); /* Transparent background */
+            mix-blend-mode: screen; /* Blend mode to remove black background */
+            border-radius: 50%;       
+        }
+
+
+        .overlay-image5 {
+            width: 5%;
+            height: 10%;
+            object-fit: cover;
+            position: fixed;
+            top:63%;
+            left: 1%;
+            z-index: 1; /* Higher z-index to overlay on top of background image */
+            background-color: rgba(0, 0, 0, 0); /* Transparent background */
+            mix-blend-mode: screen; /* Blend mode to remove black background */
+            border-radius: 50%;       
+        }
+
+
+        .overlay-image6 {
+            width: 5%;
+            height: 10%;
+            object-fit: cover;
+            position: fixed;
+            top:75%;
+            left: 1%;
+            z-index: 1; /* Higher z-index to overlay on top of background image */
+            background-color: rgba(0, 0, 0, 0); /* Transparent background */
+            mix-blend-mode: screen; /* Blend mode to remove black background */
+            border-radius: 50%;       
+        }
+
+        .overlay-image7 {
+            width: 5%;
+            height: 10%;
+            object-fit: cover;
+            position: fixed;
+            top:87%;
+            left: 1%;
+            z-index: 1; /* Higher z-index to overlay on top of background image */
+            background-color: rgba(0, 0, 0, 0); /* Transparent background */
+            mix-blend-mode: screen; /* Blend mode to remove black background */
+            border-radius: 50%;       
+        }
+
+        .overlay-image8 {
+            width: 7%;
+            height: 17.5%;
+            object-fit: cover;
+            position: fixed;
+            top:17%;
+            left:30.5%;
+     
+           
+                 
+        }
+
+        
+        .overlay-image9 {
+            width: 7%;
+            height: 20%;
+            object-fit: cover;
+            position: fixed;
+            top:80%;
+            left: 91%;
+     
+           
+                 
+        }
+
+        .overlay-image10 {
+            width: 20.8%;
+            height: 19.9%;
+            object-fit: cover;
+            position: fixed;
+            top:80%;
+            left: 50%;
+     
+           
+                 
+        }
+
+
+        
+        .overlay-image11 {
+            width: 20.8%;
+            height: 1%;
+            object-fit: cover;
+            position: fixed;
+            top:80%;
+            left: 30%;
+     
+           
+                 
+        }
+
+
+
+
+
+
+
+        
+        .anemo
+        {
+       
+            object-fit: cover;
+            position: fixed;
+            top: 18%;
+            left: 6.3%;
+            font-size: 30px; /* Increased font size */
+            color: rgb(107, 230, 123); /* Changed text color to yellow */
+            text-shadow: 0 0 20px rgba(0, 212, 71, 0.7);
+        }
+
+        .cryo
+        {
+            object-fit: cover;
+            position: fixed;
+            top: 30%;
+            left: 6.3%;
+            font-size: 30px; /* Increased font size */
+            color: rgb(135, 233, 240); /* Changed text color to yellow */
+            text-shadow: 0 0 20px rgba(1, 188, 245, 0.7);
+        }
+
+        .dendro
+        {
+            object-fit: cover;
+            position: fixed;
+            top: 41.7%;
+            left: 6.3%;
+            font-size: 30px; /* Increased font size */
+            color: rgb(40, 139, 31); /* Changed text color to yellow */
+            text-shadow: 0 0 20px rgba(77, 224, 109, 0.7);
+        }
+
+        
+        .electro
+        {
+            object-fit: cover;
+            position: fixed;
+            top: 53.7%;
+            left: 6.3%;
+            font-size: 30px; /* Increased font size */
+            color: rgb(129, 71, 236); /* Changed text color to yellow */
+            text-shadow: 0 0 20px rgba(51, 7, 121, 0.7);
+        }
+
+        .geo
+        {
+            object-fit: cover;
+            position: fixed;
+            top: 65.7%;
+            left: 6.3%;
+            font-size: 30px; /* Increased font size */
+            color: rgb(146, 101, 5); /* Changed text color to yellow */
+            text-shadow: 0 0 20px rgba(235, 225, 97, 0.7);
+        }
+
+        .hydro
+        {
+            object-fit: cover;
+            position: fixed;
+            top: 77.7%;
+            left: 6.3%;
+            font-size: 30px; /* Increased font size */
+            color: rgb(68, 153, 156); /* Changed text color to yellow */
+            text-shadow: 0 0 20px rgba(43, 207, 207, 0.7);
+        }
+
+        .pyro
+        {
+            object-fit: cover;
+            position: fixed;
+            top: 89.7%;
+            left: 6.3%;
+            font-size: 30px; /* Increased font size */
+            color: rgb(216, 43, 43); /* Changed text color to yellow */
+            text-shadow: 0 0 20px rgba(235, 109, 7, 0.7);
+        }
+        
+        
+        
+    
+
+
+    </style>
+</head>
+<body>
+    <!-- Overlay Image -->
+    <img class="overlay-image" src="a1-.gif">
+    <img class="overlay-image2" src="c1-.gif">
+    <img class="overlay-image3" src="d1-.gif">
+    <img class="overlay-image4" src="e1-.gif">
+    <img class="overlay-image5" src="g1-.gif">
+    <img class="overlay-image6" src="h1-.gif">
+    <img class="overlay-image7" src="p1-.gif">
+    <img class="overlay-image8" src="raiden.gif">
+    <img class="overlay-image9" src="paimon.gif">
+    <img class="overlay-image10" src="shenhe.gif">
+    <img class="overlay-image11" src="raiden2.gif">
+
+    <!--ELEMENTAL TEXT-->
+    <div class="anemo">ANEMO</div>
+    <div class="cryo">CRYO</div>    
+    <div class="dendro">DENDRO</div>   
+    <div class="electro">ELECTRO</div>  
+    <div class="geo">GEO</div>  
+    <div class="hydro">HYDRO</div>  
+    <div class="pyro">PYRO</div> 
+
+
+
+
+
+    <!-- Main Content -->
+    <img class="fullscreen-image" id="bgImage" src="1.gif" >
+    <div class="calligraphy-text">ELEMENTAL REACTION </div>
+  
+    <!-- User Input for Reactions -->
+    <div class="reaction-input">
+        <div class="input-group">
+            <label for="reaction1">
+                <span class="letter-green">E</span>
+                <span class="letter-blue">n</span>
+                <span class="letter-white">t</span>
+                <span class="letter-yellow">e</span>
+                <span class="letter-red">r</span>
+                &nbsp;<span class="letter-white">First</span>&nbsp;
+                <span class="letter-purple">E</span>
+                <span class="letter-pink">l</span>
+                <span class="letter-cyan">e</span>
+                <span class="letter-brown">m</span>
+                <span class="letter-grey">e</span>
+                <span class="letter-white">n</span>
+                <span class="letter-black">t</span>
+            </label>
+            <input type="text" id="reaction1">
+        </div>
+        <div class="input-group">
+            <label for="reaction2">
+                <span class="letter-green">E</span>
+                <span class="letter-blue">n</span>
+                <span class="letter-white">t</span>
+                <span class="letter-yellow">e</span>
+                <span class="letter-red">r</span>
+                &nbsp;<span class="letter-white">Second</span>&nbsp;
+                <span class="letter-purple">E</span>
+                <span class="letter-pink">l</span>
+                <span class="letter-cyan">e</span>
+                <span class="letter-brown">m</span>
+                <span class="letter-grey">e</span>
+                <span class="letter-white">n</span>
+                <span class="letter-black">t</span>
+            </label>
+            <input type="text" id="reaction2">
+        </div>
+        <button onclick="checkReaction()">Check Reaction</button>
+    </div>
+
+    <!-- Pop-up Container -->
+    <div class="popup-container" id="popupContainer">
+        <span class="close-button" onclick="closePopup()">X</span>
+        <div class="popup-content" id="popupContent"></div>
+    </div>
+
+    <script>
+        function adjustImageSize() {
+            const img = document.getElementById('bgImage');
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const imageAspectRatio = img.naturalWidth / img.naturalHeight;
+            const viewportAspectRatio = viewportWidth / viewportHeight;
+
+            if (viewportAspectRatio > imageAspectRatio) {
+                img.style.width = '100vw';
+                img.style.height = 'auto';
+            } else {
+                img.style.width = 'auto';
+                img.style.height = '100vh';
+            }
+        }
+
+        window.addEventListener('resize', adjustImageSize);
+        adjustImageSize(); // Adjust image size on initial page load
+
+        function checkReaction() {
+            const reaction1 = document.getElementById('reaction1').value.toLowerCase();
+            const reaction2 = document.getElementById('reaction2').value.toLowerCase();
+            let popupMessage = '';
+
+            if ((reaction1 === 'anemo' && reaction2 === 'anemo') )
+            {
+                popupMessage = 'Traveler the reaction is Anemo';
+            } 
+
+            else if ((reaction1 === 'cryo' && reaction2 === 'cryo') )
+            {
+                popupMessage = 'Traveler the reaction is Cryo';
+            } 
+
+            else if ((reaction1 === 'dendro' && reaction2 === 'dendro') )
+            {
+                popupMessage = 'Traveler the reaction is Dendro';
+            } 
+
+            else if ((reaction1 === 'electro' && reaction2 === 'electro') )
+            {
+                popupMessage = 'Traveler the reaction is Electro';
+            } 
+
+            else if ((reaction1 === 'geo' && reaction2 === 'geo') )
+            {
+                popupMessage = 'Traveler the reaction is Geo';
+            } 
+
+            else if ((reaction1 === 'pyro' && reaction2 === 'pyro') )
+            {
+                popupMessage = 'Traveler the reaction is Pyro';
+            } 
+
+
+
+            else if ((reaction1 === 'electro' && reaction2 === 'hydro') || (reaction1 === 'hydro' && reaction2 === 'electro'))
+            {
+                popupMessage = 'Traveler the reaction is Electro-Charged';
+            } 
+
+
+            else if ((reaction1 === 'cryo' && reaction2 === 'hydro') || (reaction1 === 'hydro' && reaction2 === 'cryo')) 
+            {
+                popupMessage = 'Traveler the reaction is Frozen';
+            } 
+
+            
+            else if ((reaction1 === 'pyro' && reaction2 === 'hydro') || (reaction1 === 'hydro' && reaction2 === 'pyro')) 
+            {
+                popupMessage = 'Traveler the reaction is Frozen';
+            } 
+
+
+            else if ((reaction1 === 'electro' && reaction2 === 'hydro') || (reaction1 === 'hydro' && reaction2 === 'electro')) 
+            {
+                popupMessage = 'Traveler the reaction is Electro-charged';
+            } 
+
+            else if ((reaction1 === 'cryo' && reaction2 === 'electro') || (reaction1 === 'electro' && reaction2 === 'cryo')) 
+            {
+                popupMessage = 'Traveler the reaction is Superconduct';
+            } 
+
+            else if ((reaction1 === 'pyro' && reaction2 === 'dendro') || (reaction1 === 'dendro' && reaction2 === 'pyro')) 
+            {
+                popupMessage = 'Traveler the reaction is Burning';
+            } 
+
+            else if ((reaction1 === 'pyro' && reaction2 === 'cryo') || (reaction1 === 'cryo' && reaction2 === 'pyro')) 
+            {
+                popupMessage = 'Traveler the reaction is Melt';
+            } 
+
+            else if ((reaction1 === 'dendro' && reaction2 === 'hydro') || (reaction1 === 'hydro' && reaction2 === 'dendro')) 
+            {
+                popupMessage = 'Traveler the reaction is Melt';
+            } 
+
+            else if ((reaction1 === 'dendro' && reaction2 === 'electro') || (reaction1 === 'electro' && reaction2 === 'dendro')) 
+            {
+                popupMessage = 'Traveler the reaction is Quicken';
+            } 
+
+            else if ((reaction1 === 'pyro' && reaction2 === 'electro') || (reaction1 === 'electro' && reaction2 === 'pyro')) 
+            {
+                popupMessage = 'Traveler the reaction is Overload';
+            } 
+
+            else 
+            {
+                popupMessage = 'Unknown reaction for the given elements.';
+            }
+
+
+
+
+
+            const popupContainer = document.getElementById('popupContainer');
+            const popupContent = document.getElementById('popupContent');
+            popupContent.innerText = popupMessage;
+            popupContainer.style.display = 'block';
+
+
+
+
+            // Close the popup after 7 seconds
+            setTimeout(() => {
+                popupContainer.style.display = 'none';
+            }, 7000);
+        }
+
+        function closePopup() {
+            const popupContainer = document.getElementById('popupContainer');
+            popupContainer.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
