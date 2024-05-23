@@ -1,0 +1,131 @@
+/* mobile.css */
+
+/* Apply to all screen sizes initially */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.fullscreen-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.9;
+}
+
+.calligraphy-text {
+    font-size: 35px; /* Adjust font size for smaller screens */
+    font-weight: normal;
+    color: rgb(235, 221, 177);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    font-family: cursive;
+    letter-spacing: 1px;
+    line-height: 1;
+    white-space: nowrap;
+    position: absolute;
+    top: 10%; /* Adjust positioning for smaller screens */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.reaction-input {
+    font-size: 35px; /* Adjust font size for smaller screens */
+    margin-top: 10px;
+    text-align: center;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.input-group label {
+    font-size: 18px; /* Adjust font size for smaller screens */
+}
+
+input[type="text"] {
+    font-size: 18px; /* Adjust font size for smaller screens */
+    padding: 10px;
+    width: 200px; /* Adjust width for smaller screens */
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+    color: black;
+}
+
+/* Responsive styles for overlay images */
+.overlay-image, .overlay-image2, .overlay-image3, .overlay-image4, .overlay-image5, .overlay-image6, .overlay-image7, .overlay-image8, .overlay-image9, .overlay-image10, .overlay-image11 {
+    width: 10%; /* Adjust width for smaller screens */
+    height: auto;
+    position: fixed;
+}
+
+/* Specific positioning for overlay images on smaller screens */
+.overlay-image { top: 10%; left: 2%; }
+.overlay-image2 { top: 22%; left: 2%; }
+.overlay-image3 { top: 34%; left: 2%; }
+.overlay-image4 { top: 46%; left: 2%; }
+.overlay-image5 { top: 58%; left: 2%; }
+.overlay-image6 { top: 70%; left: 2%; }
+.overlay-image7 { top: 82%; left: 2%; }
+.overlay-image8 { top: 5%; left: 50%; transform: translateX(-50%); }
+.overlay-image9 { top: 90%; left: 50%; transform: translateX(-50%); }
+.overlay-image10 { top: 75%; left: 10%; }
+.overlay-image11 { top: 75%; left: 70%; }
+
+.anemo, .cryo, .dendro, .electro, .geo, .hydro, .pyro {
+    font-size: 18px; /* Adjust font size for smaller screens */
+    position: fixed;
+    left: 15%; /* Adjust positioning for better readability */
+}
+
+.anemo { top: 10%; }
+.cryo { top: 22%; }
+.dendro { top: 34%; }
+.electro { top: 46%; }
+.geo { top: 58%; }
+.hydro { top: 70%; }
+.pyro { top: 82%; }
+
+/* Adjust popup container for smaller screens */
+.popup-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px; /* Adjust padding for smaller screens */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    width: 80%; /* Adjust width for smaller screens */
+}
+
+.popup-content {
+    text-align: center;
+    font-size: 18px; /* Adjust font size for smaller screens */
+    color: black;
+}
+
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 18px; /* Adjust font size for smaller screens */
+    color: red;
+}
