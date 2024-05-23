@@ -516,7 +516,7 @@
             
             else if ((reaction1 === 'pyro' && reaction2 === 'hydro') || (reaction1 === 'hydro' && reaction2 === 'pyro')) 
             {
-                popupMessage = 'Traveler the reaction is Frozen';
+                popupMessage = 'Traveler the reaction is Vaporize';
             } 
 
 
@@ -542,17 +542,37 @@
 
             else if ((reaction1 === 'dendro' && reaction2 === 'hydro') || (reaction1 === 'hydro' && reaction2 === 'dendro')) 
             {
-                popupMessage = 'Traveler the reaction is Melt';
+                popupMessage = 'Traveler the reaction is Bloom';
             } 
 
             else if ((reaction1 === 'dendro' && reaction2 === 'electro') || (reaction1 === 'electro' && reaction2 === 'dendro')) 
             {
-                popupMessage = 'Traveler the reaction is Quicken';
+                popupMessage = 'Traveler the reaction is Hyperbloom';
             } 
 
             else if ((reaction1 === 'pyro' && reaction2 === 'electro') || (reaction1 === 'electro' && reaction2 === 'pyro')) 
             {
                 popupMessage = 'Traveler the reaction is Overload';
+            } 
+
+
+             else if ((reaction1 === 'geo' && reaction2 === 'cryo') || (reaction1 === 'cryo' && reaction2 === 'geo')) 
+            {
+                popupMessage = 'Traveler the reaction is Crystallize';
+            } 
+
+        else if ((reaction1 === 'geo' && reaction2 === 'electro') || (reaction1 === 'elecetro' && reaction2 === 'geo')) 
+            {
+                popupMessage = 'Traveler the reaction is Crystallize';
+            } 
+ else if ((reaction1 === 'geo' && reaction2 === 'hydro') || (reaction1 === 'hydro' && reaction2 === 'geo')) 
+            {
+                popupMessage = 'Traveler the reaction is Crystallize';
+            } 
+
+            else if ((reaction1 === 'geo' && reaction2 === 'pyro') || (reaction1 === 'pyro' && reaction2 === 'geo')) 
+            {
+                popupMessage = 'Traveler the reaction is Crystallize';
             } 
 
             else 
